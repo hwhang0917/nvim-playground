@@ -1,3 +1,3 @@
-# Docker Arch Nvim
+# Neovim Playground
 
-> Docker image to test neovim configuration on archlinux
+> Docker image to test neovim configuration

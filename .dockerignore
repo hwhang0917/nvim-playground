@@ -1,0 +1,14 @@
+.git
+.gitignore
+README.md
+.github
+*.md
+node_modules
+.npm
+.cache
+.local/share
+.vscode
+.idea
+*.log
+.DS_Store
+Thumbs.db

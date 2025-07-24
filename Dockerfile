@@ -1,16 +1,16 @@
-FROM archlinux:latest
+FROM alpine:3.19 AS base
 
-RUN pacman -Syu --noconfirm && \
-    pacman -S --noconfirm \
+RUN apk update && apk add --no-cache \
     neovim \
+    vim \
     git \
     curl \
     wget \
-    base-devel \
+    build-base \
     nodejs \
     npm \
-    python \
-    python-pip \
+    python3 \
+    py3-pip \
     ripgrep \
     fd \
     tree-sitter \
@@ -19,9 +19,13 @@ RUN pacman -Syu --noconfirm && \
     gzip \
     which \
     man-db \
-    openssh
+    openssh \
+    bash \
+    sudo \
+    shadow && \
+    rm -rf /var/cache/apk/*
 
-RUN useradd -m -s /bin/bash nvimuser && \
+RUN adduser -D -s /bin/bash nvimuser && \
     echo "nvimuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 USER nvimuser
