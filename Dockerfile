@@ -4,6 +4,7 @@ RUN pacman -Syu --noconfirm
 RUN pacman -S \
     sudo \
     git \
+    neovim \
     --noconfirm
 
 RUN useradd -s /bin/bash -m nvimuser
