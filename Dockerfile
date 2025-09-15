@@ -1,37 +1,24 @@
-FROM alpine:3.19 AS base
+FROM archlinux:base
 
-RUN apk update && apk add --no-cache \
-    neovim \
-    vim \
-    git \
-    curl \
-    wget \
-    build-base \
-    nodejs \
-    npm \
-    python3 \
-    py3-pip \
-    ripgrep \
-    fd \
-    tree-sitter \
-    unzip \
-    tar \
-    gzip \
-    which \
-    man-db \
-    openssh \
-    bash \
+RUN pacman -Syu --noconfirm
+RUN pacman -S \
     sudo \
-    shadow && \
-    rm -rf /var/cache/apk/*
+    git \
+    --noconfirm
 
-RUN adduser -D -s /bin/bash nvimuser && \
-    echo "nvimuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN useradd -s /bin/bash -m nvimuser
 
 USER nvimuser
 WORKDIR /home/nvimuser
 
 RUN mkdir -p ~/.config/nvim
+
+RUN echo 'export PS1="\W > "' >> ~/.bashrc && \
+    echo "alias ll='ls -la'" >> ~/.bashrc && \
+    echo "alias la='ls -A'" >> ~/.bashrc && \
+    echo "alias l='ls -CF'" >> ~/.bashrc && \
+    echo "alias vi='nvim'" >> ~/.bashrc && \
+    echo "alias vim='nvim'" >> ~/.bashrc
 
 ENV EDITOR=nvim
 ENV VISUAL=nvim
